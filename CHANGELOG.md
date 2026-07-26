@@ -49,6 +49,15 @@ bare-batch `/v1/execute`) no longer exist; `/v1` as a whole is deprecated.
 - `list_banks()`, `context_pack()`, `ingest_repo()` and the context resource —
   their endpoints no longer exist. `list_recent()` and `DIRECT_BASE_URL`
   remain as deprecated shims.
+- **`recall(filters=...)`** — the argument is gone and `recall` is now
+  keyword-only, so a leftover `filters=` raises `TypeError`. Filtering moved
+  to `list(namespace=..., query=...)`.
+- **`Chunk`'s compact-key form.** 0.2 accepted `Chunk(i=..., s=..., t=...,
+  g=...)`; 0.3 fields are `id` / `score` / `text` / `tags`. Because the model
+  allows extra attributes (so new server fields never break a client), the
+  old short keys are absorbed as extras rather than rejected — a `Chunk`
+  built the 0.2 way comes back with empty `text` and no `score` instead of
+  raising. Construct with the full names.
 
 ## [0.2.0] - 2026-07-13
 
